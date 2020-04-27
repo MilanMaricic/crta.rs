@@ -15,6 +15,14 @@ public class checkPageTitleTest {
     AppTest app = new AppTest();
     private String siteURL = "https://crta.rs";
     private WebDriver driver;
+    private String expectedTitle[] = {
+            "CRTA :Home - CRTA",
+            "CRTA :O nama - CRTA",
+            "CRTA :Istraživanja - CRTA",
+            "CRTA :Blog Archives - CRTA",
+            "CRTA :Jedno veliko i milijun malih srca - CRTA"
+    };
+
 
     @Test
     public void checkRandomlyFiveTitlePages() throws InterruptedException {
@@ -30,11 +38,29 @@ public class checkPageTitleTest {
         //driver = new ChromeDriver();
 
         //initial setup
-        // driver.manage().window().maximize();
+         driver.manage().window().maximize();
 
         //navigate to crta.rs home page
         driver.get(siteURL);
+        Assert.assertEquals(driver.getTitle(), expectedTitle[0]);
 
+        driver.findElement(By.id("menu-item-7977")).click();
+        Assert.assertEquals(driver.getTitle(),expectedTitle[1]);
+
+
+        driver.findElement(By.xpath("//*[@id=\"services\"]/div/div/div[2]/div/div/div/div/div[1]/div[3]/div/div[6]/div[2]/div[2]/div/a")).click();
+        Assert.assertEquals(driver.getTitle(),expectedTitle[2]);
+
+        driver.findElement(By.id("menu-item-7957")).click();
+        Assert.assertEquals(driver.getTitle(),expectedTitle[3]);
+
+        driver.findElement(By.xpath("//*[@id=\"post-22405\"]/div/div/div[1]/a")).click();
+        Assert.assertEquals(driver.getTitle(),expectedTitle[4]);
+
+
+
+
+        /*
         //WebElement randomPage[] = new WebElement[5];
         WebElement menuArea = driver.findElement(By.xpath("/html/body/main/div/div[2]/div/div/div/div/div/div/div/div[1]"));
         ArrayList<String> titleArray = new ArrayList();
@@ -57,6 +83,8 @@ public class checkPageTitleTest {
             menuArea = driver.findElement(By.xpath("/html/body/main/div/div[2]/div/div/div/div/div/div/div/div[1]"));
             l1 = menuArea.findElements(By.tagName("a"));
             }
+         */
+
         driver.quit();
         }
 }
